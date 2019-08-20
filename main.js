@@ -1,5 +1,5 @@
-var margin = {top: 20, right: 30, bottom: 40, left: 165},
-    dim = Math.min(parseInt(d3.select("#chart").style("width")), parseInt(d3.select("#chart").style("height"))),
+var margin = {top: 10, right: 10, bottom: 10, left: 10},
+    dim = parseInt(d3.select("#chart").style("width")),
     width = dim - margin.left - margin.right,
     mapRatio = .5,
     height = (width / .80) * mapRatio,
@@ -22,7 +22,7 @@ d3.select(window).on('resize', responsive);
 
 function responsive() {
     // adjust things when the window size changes
-    width = parseInt(d3.select('#main').style('width'));
+    width = parseInt(d3.select('#chart').style('width'));
     width = width - margin.left - margin.right;
     height = width * mapRatio;
     // update projection
@@ -99,9 +99,12 @@ function ready(error, us, rural) {
     })
     .attr("d", path)
     .attr("fill", function(d) {
-        if (colorId[d.id] === undefined ) {return "#aaa"}  
+        if (colorId[d.id] === undefined ) {return "#ccc"}  
         else { return '#'+ colorId[d.id]; }
     })
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseout", mouseout);
 
   g.append("path")
     .datum(topojson.mesh(us, us.objects.states, function(a, b) {
@@ -110,6 +113,62 @@ function ready(error, us, rural) {
     .attr("class", "states")
     .attr("d", path);
 
+  
+  //---tooltip begin---
+  var tooltip = d3.select("#chart")
+    .append("div")
+    .attr("id", "tooltip")
+    .attr("class", "tooltip");
+
+  function updatePosition(event) {
+    var ttid = "#tooltip";
+    var xOffset = 10;
+    var yOffset = 10;
+
+    var ttw = $(ttid).width();
+    var tth = $(ttid).height();
+    var wscrY = $(window).scrollTop();
+    var wscrX = $(window).scrollLeft();
+    var curX = (document.all) ? event.clientX + wscrX : event.pageX;
+    var curY = (document.all) ? event.clientY + wscrY : event.pageY;
+    var ttleft = ((curX - wscrX + xOffset * 2 + ttw) > $(window).width()) ? curX - ttw - xOffset * 2 : curX + xOffset;
+    if (ttleft < wscrX + xOffset) {
+        ttleft = wscrX + xOffset;
+    }
+    var tttop = ((curY - wscrY + yOffset * 2 + tth) > $(window).height()) ? curY - tth - yOffset * 2 : curY + yOffset;
+    if (tttop < wscrY + yOffset) {
+        tttop = curY + yOffset;
+    }
+    $(ttid).css('top', tttop + 'px').css('left', ttleft + 'px');
+  }
+
+  function mouseover(d) {
+    d3.select(this).classed("selected", true);
+    tooltip.style("visibility", "visible")
+  };
+
+  function mousemove(d, i) {
+    tooltip.style("visibility", "visible")
+        .style("top", d3.event.pageY + "px")
+        .style("left", d3.event.pageX + "px")
+        .html(function() {
+      
+    if (countynameId[d.id] === undefined) 
+        { return "Not Available<" }
+                                
+    else { return "<span class='tipHed'>" + countynameId[d.id]  
+        "</span> <br> <b>" + typenameId[d.id] + "</b>" };
+
+    });
+  };
+
+  updatePosition(event);
+
+  function mouseout(d) {
+    d3.select(this).classed("selected", false);
+    tooltip.style("visibility", "hidden")
+  };
+                    
 
 
 
