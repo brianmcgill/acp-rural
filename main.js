@@ -137,7 +137,7 @@ function ready(error, us, rural) {
         { return "Urban County" }
                                 
     else { return "<span class='tipHed'>" + countynameId[d.id] + 
-        "</span> <br> <b>" + typenameId[d.id] + "</b>" };
+        "</span> <br> " + typenameId[d.id]};
 
     });
     updatePosition(event);
