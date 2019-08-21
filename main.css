@@ -3,6 +3,7 @@ text, body { font-family: Montserrat !important; }
 #chart {
 	position: static;
   	width: 100%;
+  	max-width: 900px;
   	height: auto;
   	
 }
@@ -33,9 +34,9 @@ text, body { font-family: Montserrat !important; }
 }
 
 .tipHed {
-	font-size: 15px;
+	font-size: 13px;
 	font-weight:bold;
-	line-height: 20px;
+	line-height: 18px;
 }
 
 .selected {

@@ -116,19 +116,17 @@ function ready(error, us, rural) {
   }
 
   function mouseover(d) {
+
+    d3.selectAll('.ctyPath').attr('fill', function(d) { return '#ccc' })
+
     d3.select(this).classed("selected", true);
+
+    d3.selectAll('.ctyPath[val="' + this.getAttribute('val') + '"]').attr('fill', function(d) { return '#'+ colorId[d.id];}) 
 
     tooltip.style("visibility", "visible")
   };
 
   function mousemove(d, i) {
-
-    d3.selectAll('.ctyPath').attr('fill', function(d) {
-        if (this.getAttribute('val') == '10') {return '#'+ colorId[d.id];}  
-        else { return "#ccc" }
-    })
-
-    console.log(this.getAttribute('val'))
 
     tooltip.style("visibility", "visible")
         .style("top", d3.event.pageY + "20px")
@@ -136,9 +134,9 @@ function ready(error, us, rural) {
         .html(function() {
       
     if (countynameId[d.id] === undefined) 
-        { return "Not Available" }
+        { return "Urban County" }
                                 
-    else { return "<span class='tipHed'>" + countynameId[d.id]  
+    else { return "<span class='tipHed'>" + countynameId[d.id] + 
         "</span> <br> <b>" + typenameId[d.id] + "</b>" };
 
     });
@@ -147,6 +145,12 @@ function ready(error, us, rural) {
   };
 
   function mouseout(d) {
+
+     d3.selectAll('.ctyPath').attr("fill", function(d) {
+        if (colorId[d.id] === undefined ) {return "#ccc"}  
+        else { return '#'+ colorId[d.id]; }
+    })    
+
     d3.select(this).classed("selected", false);
     tooltip.style("visibility", "hidden")
   };
