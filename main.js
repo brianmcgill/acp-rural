@@ -121,7 +121,9 @@ function ready(error, us, rural) {
 
     d3.select(this).classed("selected", true);
 
-    d3.selectAll('.ctyPath[val="' + this.getAttribute('val') + '"]').attr('fill', function(d) { return '#'+ colorId[d.id];}).attr('opacity', function(d) { return '1' }) 
+    d3.selectAll('.ctyPath[val="' + this.getAttribute('val') + '"]')
+        .attr('fill', function(d) { return '#'+ colorId[d.id];})
+        .attr('opacity', function(d) { return '1' }) 
 
     tooltip.style("visibility", "visible")
   };
@@ -133,20 +135,21 @@ function ready(error, us, rural) {
         .style("left", d3.event.pageX + "px")
         .html(function() {
       
-    if (countynameId[d.id] === undefined) 
-        { return "Urban County" }
-                                
-    else { return "<span class='tipHed'>" + countynameId[d.id] + 
-        "</span> <br> " + typenameId[d.id]};
+            if (countynameId[d.id] === undefined) 
+                { return "Urban County" }
+                                        
+            else { return "<span class='tipHed'>" + countynameId[d.id] + 
+                "</span> <br> " + typenameId[d.id]};
 
-    });
+        });
+
     updatePosition(event);
-
   };
 
   function mouseout(d) {
 
-     d3.selectAll('.ctyPath').attr('opacity', function(d) { return '1' })
+    d3.selectAll('.ctyPath')
+        .attr('opacity', function(d) { return '1' })
         .attr("fill", function(d) {
         if (colorId[d.id] === undefined ) {return "#ccc"}  
         else { return '#'+ colorId[d.id]; }
