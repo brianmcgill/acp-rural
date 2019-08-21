@@ -69,7 +69,7 @@ function ready(error, us, rural) {
     .append("path")
     .attr("id", function(d) { return "fip" + d.id; }) 
     .attr('class', function(d) { return "ctyPath" })
-    .attr('id', function(d) {return typeId[d.id] })
+    .attr('val', function(d) {return typeId[d.id] })
     .attr("d", path)
     .attr("fill", function(d) {
         if (colorId[d.id] === undefined ) {return "#ccc"}  
@@ -96,7 +96,7 @@ function ready(error, us, rural) {
   function updatePosition(event) {
     var ttid = "#tooltip";
     var xOffset = 10;
-    var yOffset = 10 - parseInt(d3.select('H3').style("height"));
+    var yOffset = 10 //if tooltip is off a tad make sure the div is postition: static
 
     var ttw = $(ttid).width();
     var tth = $(ttid).height();
@@ -123,10 +123,12 @@ function ready(error, us, rural) {
 
   function mousemove(d, i) {
 
-    /*d3.selectAll('.ctyPath').attr('fill', function(d) {
-        if (typeId[d.id] == '10') {return '#'+ colorId[d.id];}  
+    d3.selectAll('.ctyPath').attr('fill', function(d) {
+        if (this.getAttribute('val') == '10') {return '#'+ colorId[d.id];}  
         else { return "#ccc" }
-    })*/
+    })
+
+    console.log(this.getAttribute('val'))
 
     tooltip.style("visibility", "visible")
         .style("top", d3.event.pageY + "20px")

@@ -1,11 +1,10 @@
 text, body { font-family: Montserrat !important; }
 
 #chart {
+	position: static;
   	width: 100%;
   	height: auto;
-  	min-width: 300px;
-  	min-height: 300px;
-  	position: relative;
+  	
 }
 
 .states {
