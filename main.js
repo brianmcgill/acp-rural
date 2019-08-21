@@ -117,11 +117,11 @@ function ready(error, us, rural) {
 
   function mouseover(d) {
 
-    d3.selectAll('.ctyPath').attr('fill', function(d) { return '#ccc' })
+    d3.selectAll('.ctyPath').attr('opacity', function(d) { return '0.15' })
 
     d3.select(this).classed("selected", true);
 
-    d3.selectAll('.ctyPath[val="' + this.getAttribute('val') + '"]').attr('fill', function(d) { return '#'+ colorId[d.id];}) 
+    d3.selectAll('.ctyPath[val="' + this.getAttribute('val') + '"]').attr('fill', function(d) { return '#'+ colorId[d.id];}).attr('opacity', function(d) { return '1' }) 
 
     tooltip.style("visibility", "visible")
   };
@@ -146,7 +146,8 @@ function ready(error, us, rural) {
 
   function mouseout(d) {
 
-     d3.selectAll('.ctyPath').attr("fill", function(d) {
+     d3.selectAll('.ctyPath').attr('opacity', function(d) { return '1' })
+        .attr("fill", function(d) {
         if (colorId[d.id] === undefined ) {return "#ccc"}  
         else { return '#'+ colorId[d.id]; }
     })    
