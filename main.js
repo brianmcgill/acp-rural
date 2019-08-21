@@ -10,37 +10,11 @@ var projection = d3.geoAlbersUsa()
     .translate([width / 2, height / 2]);
 
 var path = d3.geoPath(projection)
-    //.projection();
-
-/*var zoom = d3.behavior.zoom()
-    .translate(projection.translate())
-    .scale(projection.scale())
-    .scaleExtent([2.14 * height, 12 * height])
-    .on("zoom", zoomed);*/
-
-d3.select(window).on('resize', responsive);
-
-function responsive() {
-    // adjust things when the window size changes
-    width = parseInt(d3.select('#chart').style('width'));
-    width = width - margin.left - margin.right;
-    height = width * mapRatio;
-    // update projection
-    projection.translate([width / 2, height / 2])
-        .scale(width);
-    // resize the map container
-    main.style('width', width + 'px')
-        .style('height', height + 'px');
-    // resize the map
-    main.select('.land').attr('d', path);
-    main.selectAll('.state').attr('d', path);
-}
 
 var svg = d3.select("#chart")
     .append("svg")
     .attr("width", width)
     .attr("height", height)
-    //.call(zoom);
 
 var g = svg.append("g");
                 
@@ -70,7 +44,6 @@ function ready(error, us, rural) {
 
 
   rural.forEach(function(d) {
-    //fipsId[d.id] = +d.fips;
     countynameId[d.id] = d.countyname;
     typeId[d.id] = +d.type;
     typenameId[d.id] = d.typename;
@@ -94,9 +67,9 @@ function ready(error, us, rural) {
     .data(topojson.feature(us, us.objects.counties).features)
     .enter()
     .append("path")
-    .attr("id", function(d) {
-        return d.id;
-    })
+    .attr("id", function(d) { return "fip" + d.id; }) 
+    .attr('class', function(d) { return "ctyPath" })
+    .attr('id', function(d) {return typeId[d.id] })
     .attr("d", path)
     .attr("fill", function(d) {
         if (colorId[d.id] === undefined ) {return "#ccc"}  
@@ -123,7 +96,7 @@ function ready(error, us, rural) {
   function updatePosition(event) {
     var ttid = "#tooltip";
     var xOffset = 10;
-    var yOffset = 10;
+    var yOffset = 10 - parseInt(d3.select('H3').style("height"));
 
     var ttw = $(ttid).width();
     var tth = $(ttid).height();
@@ -144,25 +117,32 @@ function ready(error, us, rural) {
 
   function mouseover(d) {
     d3.select(this).classed("selected", true);
+
     tooltip.style("visibility", "visible")
   };
 
   function mousemove(d, i) {
+
+    /*d3.selectAll('.ctyPath').attr('fill', function(d) {
+        if (typeId[d.id] == '10') {return '#'+ colorId[d.id];}  
+        else { return "#ccc" }
+    })*/
+
     tooltip.style("visibility", "visible")
-        .style("top", d3.event.pageY + "px")
+        .style("top", d3.event.pageY + "20px")
         .style("left", d3.event.pageX + "px")
         .html(function() {
       
     if (countynameId[d.id] === undefined) 
-        { return "Not Available<" }
+        { return "Not Available" }
                                 
     else { return "<span class='tipHed'>" + countynameId[d.id]  
         "</span> <br> <b>" + typenameId[d.id] + "</b>" };
 
     });
-  };
+    updatePosition(event);
 
-  updatePosition(event);
+  };
 
   function mouseout(d) {
     d3.select(this).classed("selected", false);
