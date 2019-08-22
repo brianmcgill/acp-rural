@@ -67,7 +67,6 @@ function ready(error, us, rural) {
     .data(rural).enter()
     .append("option")
     .attr('value', function(d) {return  d.id })
-    .attr('fr', function(d){ return typeId[d.id] })
     .text(function(d) {return countynameId[d.id] + ', ' + statenameId[d.id]; })
     .sort(function(a,b) {return d3.ascending(a.statename, b.statename) || d3.ascending(a.countyname, b.countyname); }) 
 
@@ -176,12 +175,18 @@ function ready(error, us, rural) {
       .attr('opacity', function(d) { return 0.15 })
   };
 
+  function clearSelectedCounty() { 
+    d3.selectAll('.ctyPath')
+      .classed("selected", false)
+      .attr('opacity', function(d) { return 1 })
+  };
+
   $('input[type="hidden"]').change(function(){
-    var ctySlug = $(this).val();
-    var ctyType = d3.selectAll('.ctyPath[fip="' + ctySlug + '"]').attr('ctyType');
+    var ctyFip = $(this).val();
+    var ctyType = d3.selectAll('.ctyPath[fip="' + ctyFip + '"]').attr('ctyType');
     removeSelectedCounty();
 
-    d3.selectAll('.ctyPath[fip="' + ctySlug + '"]')
+    d3.selectAll('.ctyPath[fip="' + ctyFip + '"]')
         .classed("selected", true)
         .attr('opacity', 1 )
 
@@ -193,6 +198,6 @@ function ready(error, us, rural) {
     tooltip.style("visibility", "hidden")
   });             
 
-
+  d3.select('.combobox-clear').on('click', clearSelectedCounty)
 
 };
