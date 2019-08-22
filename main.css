@@ -42,4 +42,5 @@ text, body { font-family: Montserrat !important; }
 
 .selected {
 	fill: #000;
+	opacity: 1;
 }

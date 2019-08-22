@@ -28,6 +28,7 @@ function ready(error, us, rural) {
   if (error) throw error;
 
   const countynameId = {},
+        statenameId = {},
         typeId = {},
         typenameId = {},
         colorId = {},
@@ -45,6 +46,7 @@ function ready(error, us, rural) {
 
   rural.forEach(function(d) {
     countynameId[d.id] = d.countyname;
+    statenameId[d.id] = d.statename;
     typeId[d.id] = +d.type;
     typenameId[d.id] = d.typename;
     colorId[d.id] = d.color;
@@ -58,8 +60,16 @@ function ready(error, us, rural) {
     popCngId[d.id] = +d.popCng;
     someCollId[d.id] = +d.someColl;
     uninsuredId[d.id] = +d.uninsured;
-  
   });
+
+  //create search box
+  d3.select('#combobox').selectAll('.option')
+    .data(rural).enter()
+    .append("option")
+    .attr('value', function(d) {return  d.id })
+    .attr('fr', function(d){ return typeId[d.id] })
+    .text(function(d) {return countynameId[d.id] + ', ' + statenameId[d.id]; })
+    .sort(function(a,b) {return d3.ascending(a.statename, b.statename) || d3.ascending(a.countyname, b.countyname); }) 
 
   g.append("g")
     .attr("class", "counties")
@@ -67,9 +77,10 @@ function ready(error, us, rural) {
     .data(topojson.feature(us, us.objects.counties).features)
     .enter()
     .append("path")
-    .attr("id", function(d) { return "fip" + d.id; }) 
+    .attr("id", function(d) { return "county" + d.id; }) 
+    .attr("fip", function(d) { return d.id; })
     .attr('class', function(d) { return "ctyPath" })
-    .attr('val', function(d) {return typeId[d.id] })
+    .attr('ctyType', function(d) {return typeId[d.id] })
     .attr("d", path)
     .attr("fill", function(d) {
         if (colorId[d.id] === undefined ) {return "#ccc"}  
@@ -121,7 +132,7 @@ function ready(error, us, rural) {
 
     d3.select(this).classed("selected", true);
 
-    d3.selectAll('.ctyPath[val="' + this.getAttribute('val') + '"]')
+    d3.selectAll('.ctyPath[ctyType="' + this.getAttribute('ctyType') + '"]')
         .attr('fill', function(d) { return '#'+ colorId[d.id];})
         .attr('opacity', function(d) { return '1' }) 
 
@@ -138,7 +149,7 @@ function ready(error, us, rural) {
             if (countynameId[d.id] === undefined) 
                 { return "Urban County" }
                                         
-            else { return "<span class='tipHed'>" + countynameId[d.id] + 
+            else { return "<span class='tipHed'>" + countynameId[d.id] + ', ' + statenameId[d.id] + 
                 "</span> <br> " + typenameId[d.id]};
 
         });
@@ -150,15 +161,37 @@ function ready(error, us, rural) {
 
     d3.selectAll('.ctyPath')
         .attr('opacity', function(d) { return '1' })
-        .attr("fill", function(d) {
-        if (colorId[d.id] === undefined ) {return "#ccc"}  
-        else { return '#'+ colorId[d.id]; }
-    })    
 
     d3.select(this).classed("selected", false);
     tooltip.style("visibility", "hidden")
   };
-                    
+
+
+  //search
+  $('.combobox').combobox()
+
+  function removeSelectedCounty() { 
+    d3.selectAll('.ctyPath')
+      .classed("selected", false)
+      .attr('opacity', function(d) { return 0.15 })
+  };
+
+  $('input[type="hidden"]').change(function(){
+    var ctySlug = $(this).val();
+    var ctyType = d3.selectAll('.ctyPath[fip="' + ctySlug + '"]').attr('ctyType');
+    removeSelectedCounty();
+
+    d3.selectAll('.ctyPath[fip="' + ctySlug + '"]')
+        .classed("selected", true)
+        .attr('opacity', 1 )
+
+
+    d3.selectAll('.ctyPath[ctyType="' + ctyType + '"]')
+        .attr('fill', function(d) { return '#'+ colorId[d.id];})
+        .attr('opacity', function(d) { return '1' }) 
+
+    tooltip.style("visibility", "hidden")
+  });             
 
 
 
