@@ -8,6 +8,13 @@ text, body { font-family: Montserrat !important; }
   	
 }
 
+.hed { 
+  font-family: Montserrat;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: #222;
+}
+
 .states {
 	fill: none;
 	stroke: #fff;
@@ -41,6 +48,12 @@ text, body { font-family: Montserrat !important; }
 }
 
 .selected {
-	fill: #000;
+	fill: red;
 	opacity: 1;
 }
+
+
+.cbox-container {  position: relative; width: 100%;  margin: 25px auto 0;}
+//.combobox-container { margin-left: auto; }
+
+
