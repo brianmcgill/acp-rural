@@ -61,11 +61,10 @@ text, body { font-family: Montserrat !important; }
 	float: left;
 	width: 100%;
 	max-width: 900px;
-	height: 80px;
 	margin: 0 0 10px 0;
 }
 
-circle {
+rect {
 	opacity: 0.2;
 }
 
