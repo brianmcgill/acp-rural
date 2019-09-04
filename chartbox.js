@@ -17,6 +17,7 @@ function scatter(namez) {
    // format the data
   data.forEach(function(d) {
   	  d.color = d.color;
+  	  d.type = +d.type;
       d[namez] = +d[namez];
   });
 
@@ -37,6 +38,7 @@ function scatter(namez) {
     .enter().append("rect")
     .attr("id", function(d) { return "county" + d.id; }) 
     .attr("fip", function(d) { return d.id; })
+    .attr('ctyType', function(d) {return d.type })
     .attr("r", 5)
     .attr("x", function(d) { return x(d[namez]); })
     .attr("y", 0)
