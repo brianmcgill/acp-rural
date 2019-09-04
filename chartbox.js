@@ -42,7 +42,7 @@ function scatter(namez) {
     .attr("y", 0)
     .attr('height', '20px')
     .attr('width', '2px')
-    .style("fill", function(d) { return d.color })
+    .style("fill", '#ccc') //function(d) { return d.color }
     
 
   // Add the X Axis
@@ -54,5 +54,12 @@ function scatter(namez) {
 
  scatter('popCng');
  scatter('nhWhite');
+ scatter('health');
+ scatter('someColl');
+ scatter('uninsured');
+ scatter('hhIncome');
+ scatter('miles');
+ scatter('houseBuilt');
+ scatter('medHome');
 
 });
