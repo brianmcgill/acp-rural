@@ -146,7 +146,7 @@ function ready(error, us, rural) {
         .html(function() {
       
             if (countynameId[d.id] === undefined) 
-                { return "Urban County" }
+                { return "Nonrural county" }
                                         
             else { return "<span class='tipHed'>" + countynameId[d.id] + ', ' + statenameId[d.id] + 
                 "</span> <br> " + typenameId[d.id]};

@@ -56,4 +56,17 @@ text, body { font-family: Montserrat !important; }
 .cbox-container {  position: relative; width: 100%;  margin: 25px auto 0;}
 //.combobox-container { margin-left: auto; }
 
+.barbox {
+	position: relative;
+	float: left;
+	width: 100%;
+	max-width: 900px;
+	height: 80px;
+	margin: 0 0 10px 0;
+}
+
+circle {
+	opacity: 0.2;
+}
+
 
