@@ -31,12 +31,13 @@ function scatter(namez) {
   x.domain([d3.min(data, function(d) { return d[namez]; }), d3.max(data, function(d) { return d[namez]; })]);
   y.domain(0);
 
-  console.log(x.domain());
+  //console.log(x.domain());
 
   svg.selectAll("rect")
     .data(data)
     .enter().append("rect")
     .attr("id", function(d) { return "county" + d.id; }) 
+    .attr('class', 'ctyRect')
     .attr("fip", function(d) { return d.id; })
     .attr('ctyType', function(d) {return d.type })
     .attr("r", 5)

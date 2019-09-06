@@ -47,6 +47,15 @@ text, body { font-family: Montserrat !important; }
 	line-height: 18px;
 }
 
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 0.5em 0;
+    padding: 0;
+}
+
 .selected {
 	fill: red;
 	opacity: 1;
@@ -56,9 +65,14 @@ text, body { font-family: Montserrat !important; }
 .cbox-container {  position: relative; width: 100%;  margin: 25px auto 0;}
 //.combobox-container { margin-left: auto; }
 
+.scatterbox {
+	position: static;
+	width: 100%;
+	max-width: 900px;
+}
+
 .barbox {
-	position: relative;
-	float: left;
+	position: static;
 	width: 100%;
 	max-width: 900px;
 	margin: 0 0 10px 0;

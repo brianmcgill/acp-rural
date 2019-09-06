@@ -1,3 +1,9 @@
+function bringToFront(evt) {
+  var element = evt.target; //get node reference
+  element.parentNode.appendChild(element); //appendChild after the last child
+}  
+
+
 var margin = {top: 10, right: 10, bottom: 10, left: 10},
     dim = parseInt(d3.select("#chart").style("width")),
     width = dim - margin.left - margin.right,
@@ -87,7 +93,8 @@ function ready(error, us, rural) {
     })
     .on("mouseover", mouseover)
     .on("mousemove", mousemove)
-    .on("mouseout", mouseout);
+    .on("mouseout", mouseout)
+    .on("click", click);
 
   g.append("path")
     .datum(topojson.mesh(us, us.objects.states, function(a, b) {
@@ -149,7 +156,7 @@ function ready(error, us, rural) {
                 { return "Nonrural county" }
                                         
             else { return "<span class='tipHed'>" + countynameId[d.id] + ', ' + statenameId[d.id] + 
-                "</span> <br> " + typenameId[d.id]};
+                "</span> <br> " + typenameId[d.id] + "<hr/><i>click for more information</i>"};
 
         });
 
@@ -164,6 +171,17 @@ function ready(error, us, rural) {
     d3.select(this).classed("selected", false);
     tooltip.style("visibility", "hidden")
   };
+
+  function click(d) { 
+
+    d3.selectAll('.ctyRect').style('visibility', 'hidden');
+
+    d3.selectAll('.ctyRect[ctyType="' + this.getAttribute('ctyType') + '"]')
+        .style('visibility', 'visible')
+        .style('fill', function(d) { return '#'+ colorId[d.id];})
+        .attr('opacity', function(d) { return '1' }) 
+
+  }
 
 
   //search
