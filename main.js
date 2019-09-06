@@ -194,9 +194,14 @@ function ready(error, us, rural) {
   };
 
   function clearSelectedCounty() { 
+
     d3.selectAll('.ctyPath')
       .classed("selected", false)
-      .attr('opacity', function(d) { return 1 })
+      .attr('opacity', function(d) { return 1 });
+
+    d3.selectAll('.ctyRect').style('visibility', 'visible')
+      .style('fill', '#ccc')
+      .style('opacity', 0.2);
   };
 
   $('input[type="hidden"]').change(function(){
@@ -211,6 +216,13 @@ function ready(error, us, rural) {
 
     d3.selectAll('.ctyPath[ctyType="' + ctyType + '"]')
         .attr('fill', function(d) { return '#'+ colorId[d.id];})
+        .attr('opacity', function(d) { return '1' }) 
+
+    d3.selectAll('.ctyRect').style('visibility', 'hidden');
+
+    d3.selectAll('.ctyRect[ctyType="' + ctyType + '"]')
+        .style('visibility', 'visible')
+        .style('fill', function(d) { return '#'+ colorId[d.id];})
         .attr('opacity', function(d) { return '1' }) 
 
     tooltip.style("visibility", "hidden")
