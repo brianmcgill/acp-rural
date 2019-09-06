@@ -3,7 +3,6 @@ function bringToFront(evt) {
   element.parentNode.appendChild(element); //appendChild after the last child
 }  
 
-
 var margin = {top: 10, right: 10, bottom: 10, left: 10},
     dim = parseInt(d3.select("#chart").style("width")),
     width = dim - margin.left - margin.right,
@@ -174,12 +173,25 @@ function ready(error, us, rural) {
 
   function click(d) { 
 
-    d3.selectAll('.ctyRect').style('visibility', 'hidden');
+    d3.selectAll('.ctyRect').style('visibility', 'hidden')
+      .style('stroke-width', 0)
+      .style('opacity', 0.2) ;
 
     d3.selectAll('.ctyRect[ctyType="' + this.getAttribute('ctyType') + '"]')
         .style('visibility', 'visible')
         .style('fill', function(d) { return '#'+ colorId[d.id];})
-        .attr('opacity', function(d) { return '1' }) 
+        .attr('opacity', 0.2) 
+
+     d3.selectAll('.ctyRect[fip="' + this.getAttribute('fip') + '"]')
+        .style('visibility', 'visible')
+        .style('fill', 'red')
+        .style('stroke', 'red')
+        .style('stroke-width', 2)
+        .style('opacity',1) 
+        .each(function(d,i) { 
+                     var evt = { target: this};
+                     bringToFront(evt);
+                  });;
 
   }
 
@@ -201,6 +213,7 @@ function ready(error, us, rural) {
 
     d3.selectAll('.ctyRect').style('visibility', 'visible')
       .style('fill', '#ccc')
+      .style('stroke-width', 0)
       .style('opacity', 0.2);
   };
 
@@ -218,12 +231,25 @@ function ready(error, us, rural) {
         .attr('fill', function(d) { return '#'+ colorId[d.id];})
         .attr('opacity', function(d) { return '1' }) 
 
-    d3.selectAll('.ctyRect').style('visibility', 'hidden');
+    d3.selectAll('.ctyRect').style('visibility', 'hidden')
+      .style('stroke-width', 0)
+      .style('opacity', 0.2) ;
 
     d3.selectAll('.ctyRect[ctyType="' + ctyType + '"]')
         .style('visibility', 'visible')
         .style('fill', function(d) { return '#'+ colorId[d.id];})
         .attr('opacity', function(d) { return '1' }) 
+
+    d3.selectAll('.ctyRect[fip="' + ctyFip + '"]')
+        .style('visibility', 'visible')
+        .style('fill', 'red')
+        .style('stroke', 'red')
+        .style('stroke-width', 2)
+        .style('opacity',1) 
+        .each(function(d,i) { 
+                     var evt = { target: this};
+                     bringToFront(evt);
+                  });;
 
     tooltip.style("visibility", "hidden")
   });             

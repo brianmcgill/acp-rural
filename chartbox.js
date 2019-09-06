@@ -46,7 +46,7 @@ function scatter(namez) {
     .attr('height', '20px')
     .attr('width', '2px')
     .style("fill", '#ccc') //function(d) { return d.color }
-    
+    .style('opacity', 0.2)
 
   // Add the X Axis
   svg.append("g")
