@@ -5,7 +5,7 @@ var dimB = parseInt(d3.select(".barbox").style("width")),
     heightB = 40;
 
 // set the ranges
-var x = d3.scaleLinear().range([0, widthB]);
+var x = d3.scaleLinear().rangeRound([0, widthB]);
 var y = d3.scaleLinear().range([heightB, 0]);
 
 
@@ -51,7 +51,7 @@ function scatter(namez) {
   // Add the X Axis
   svg.append("g")
     .attr("transform", "translate(0,30)")
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x)).select(".domain").remove();
 
  };
 
