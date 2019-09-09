@@ -85,6 +85,9 @@ function ready(error, us, rural) {
     .attr("fip", function(d) { return d.id; })
     .attr('class', function(d) { return "ctyPath" })
     .attr('ctyType', function(d) {return typeId[d.id] })
+    .attr('ctyName', function(d) {return countynameId[d.id] })
+    .attr('stName', function(d) {return statenameId[d.id] })
+    .attr('typeName', function(d) {return typenameId[d.id] })
     .attr("d", path)
     .attr("fill", function(d) {
         if (colorId[d.id] === undefined ) {return "#ccc"}  
@@ -179,7 +182,7 @@ function ready(error, us, rural) {
 
     d3.selectAll('.ctyRect[ctyType="' + this.getAttribute('ctyType') + '"]')
         .style('visibility', 'visible')
-        .style('fill', function(d) { return '#'+ colorId[d.id];})
+        .style('fill', function(d) { return '#'+ colorId[d.id]})
         .attr('opacity', 0.2) 
 
      d3.selectAll('.ctyRect[fip="' + this.getAttribute('fip') + '"]')
@@ -193,6 +196,14 @@ function ready(error, us, rural) {
                      bringToFront(evt);
                   });;
 
+      d3.select('.cty-big')
+        .html( function() {  
+              if (countynameId[d.id] === undefined) 
+                  { return "" }
+                else 
+                  { return "<span class='cty-hed'>" + countynameId[d.id] + ', ' + statenameId[d.id] + 
+                           "</span><span class='cty-cat'>" + typenameId[d.id] + "</span>"} 
+              })
   }
 
 
@@ -215,11 +226,16 @@ function ready(error, us, rural) {
       .style('fill', '#ccc')
       .style('stroke-width', 0)
       .style('opacity', 0.2);
+
+    d3.select('.cty-big').html('')
   };
 
   $('input[type="hidden"]').change(function(){
     var ctyFip = $(this).val();
     var ctyType = d3.selectAll('.ctyPath[fip="' + ctyFip + '"]').attr('ctyType');
+    var ctyName = d3.selectAll('.ctyPath[fip="' + ctyFip + '"]').attr('ctyName');
+    var stName = d3.selectAll('.ctyPath[fip="' + ctyFip + '"]').attr('stName');
+    var typeName = d3.selectAll('.ctyPath[fip="' + ctyFip + '"]').attr('typeName');
     removeSelectedCounty();
 
     d3.selectAll('.ctyPath[fip="' + ctyFip + '"]')
@@ -250,6 +266,9 @@ function ready(error, us, rural) {
                      var evt = { target: this};
                      bringToFront(evt);
                   });;
+
+    d3.select('.cty-big').html("<span class='cty-hed'>" + ctyName + ', ' + stName + 
+                           "</span><span class='cty-cat'>" + typeName + "</span>" )
 
     tooltip.style("visibility", "hidden")
   });             

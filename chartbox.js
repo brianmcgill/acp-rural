@@ -14,6 +14,22 @@ d3.csv("data/acprural.csv", function(error, data) {
 
 
 function scatter(namez) {
+  xAxis =  d3.axisBottom(x)
+            .ticks(5)
+            .tickFormat(function(d, i) {
+              if(namez == 'houseBuilt') {
+                  return d;
+              } else if ((i == 0 && namez == 'medHome') || (i == 0 && namez == 'hhIncome')) {
+                  return '$' + d + 'k';
+              } else if (namez == 'popCng' || namez == 'miles' || namez == 'hhIncome' || namez == 'medHome') {
+                  return d + 'k';           
+              } else if (i == 0) {
+                  return d + '%';
+              }
+              return d;
+            });
+          
+
    // format the data
   data.forEach(function(d) {
   	  d.color = d.color;
@@ -51,7 +67,7 @@ function scatter(namez) {
   // Add the X Axis
   svg.append("g")
     .attr("transform", "translate(0,30)")
-    .call(d3.axisBottom(x)).select(".domain").remove();
+    .call(xAxis).select(".domain").remove();
 
  };
 

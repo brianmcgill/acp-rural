@@ -78,5 +78,17 @@ hr {
 	margin: 0 0 10px 0;
 }
 
+.cty-hed {
+	font-size: 26px;
+	font-weight: 700;
+	color: red;
+	margin: 50px 12px 10px 0px;
+}
 
+.cty-cat {
+	font-size: 14px;
+	font-weight: 700;
+	text-transform: uppercase;;
+	color: #999;
+}
 
