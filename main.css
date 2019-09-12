@@ -102,3 +102,19 @@ hr {
 	width: 3px;
 	margin-left: 1px;
 }
+
+.thisbartext {
+	font-weight: 900;
+	font-size: 14px;
+	fill: red;
+	paint-order: stroke;
+    stroke: white;
+    stroke-width: 3px;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+}
+
+
+
+
+

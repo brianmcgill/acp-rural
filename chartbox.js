@@ -97,13 +97,9 @@ function scatter(namez) {
         } else {
           return pctDecimal(d[namez]) + '%'
         }
-
-
-    }) //return addCommas(d[namez]*1000)
-    .attr("x", function(d) { return x(d[namez]); })
-    .attr("y", 0)
-    .attr("font-size", "11px")  // Font size
-    .attr("fill", "darkgreen");
+      }) 
+    .attr("x", function(d) { return x(d[namez])+6; })
+    .attr("y", 15)
 
   // Add the X Axis
   svg.append("g")

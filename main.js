@@ -261,6 +261,9 @@ function ready(error, us, rural) {
         .classed("selected", true)
         .attr('opacity', 1 )
 
+    d3.selectAll('.thisbartext')
+        .style('visibility', 'hidden')
+
 
     d3.selectAll('.ctyPath[ctyType="' + ctyType + '"]')
         .attr('fill', function(d) { return '#'+ colorId[d.id];})
