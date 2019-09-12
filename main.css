@@ -1,6 +1,6 @@
 text, body { font-family: Montserrat !important; }
 
-h5 { margin-bottom: 0px !important; }
+h5, h6 { margin-bottom: 0px !important; }
 
 #chart {
 	position: static;
@@ -99,5 +99,6 @@ hr {
 	float: left;
 	background-color: black;
 	height: 18px;
-	width: 2px;
+	width: 3px;
+	margin-left: 1px;
 }

@@ -2,7 +2,7 @@
 
 var dimB = parseInt(d3.select(".barbox").style("width")),
 	widthB = dimB - margin.left - margin.right,
-    heightB = 40;
+    heightB = 30;
 
 // set the ranges
 var x = d3.scaleLinear().rangeRound([0, widthB]);
@@ -66,7 +66,7 @@ function scatter(namez) {
     .attr('ctyType', function(d) {return d.type })
     .attr("x", function(d) { return x(d[namez]); })
     .attr("y", 0)
-    .attr('height', '25px')
+    .attr('height', '20px')
     .attr('width', '2px')
     .style("fill", '#ccc') //function(d) { return d.color }
     .style('opacity', 0.2)
@@ -78,13 +78,13 @@ function scatter(namez) {
     .attr('class', 'avgbars')
     .attr("x", function(d) { return x(d[namez]); })
     .attr("y", 0)
-    .attr('height', '25px')
+    .attr('height', '20px')
     .attr('width', '3px')
     .style('fill', 'black')
 
   // Add the X Axis
   svg.append("g")
-    .attr("transform", "translate(0,30)")
+    .attr("transform", "translate(0,22)")
     .call(xAxis).select(".domain").remove(); //domain remove reomoves the horizontal bar
 
  };
