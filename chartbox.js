@@ -59,7 +59,7 @@ function scatter(namez) {
     .attr("r", 5)
     .attr("x", function(d) { return x(d[namez]); })
     .attr("y", 0)
-    .attr('height', '20px')
+    .attr('height', '25px')
     .attr('width', '2px')
     .style("fill", '#ccc') //function(d) { return d.color }
     .style('opacity', 0.2)
@@ -67,7 +67,7 @@ function scatter(namez) {
   // Add the X Axis
   svg.append("g")
     .attr("transform", "translate(0,30)")
-    .call(xAxis).select(".domain").remove();
+    .call(xAxis).select(".domain").remove(); //domain remove reomoves the horizontal bar
 
  };
 
@@ -78,7 +78,7 @@ function scatter(namez) {
  scatter('uninsured');
  scatter('hhIncome');
  scatter('miles');
- scatter('houseBuilt');
+ //scatter('houseBuilt');
  scatter('medHome');
 
 });
