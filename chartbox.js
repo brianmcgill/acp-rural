@@ -12,6 +12,9 @@ var y = d3.scaleLinear().range([heightB, 0]);
 d3.csv("data/acprural.csv", function(error, data) {
   if (error) throw error;
 
+  d3.csv("data/acpavg.csv", function(error, avg) {
+
+    
 
 function scatter(namez) {
   xAxis =  d3.axisBottom(x)
@@ -37,6 +40,11 @@ function scatter(namez) {
       d[namez] = +d[namez];
   });
 
+  avg.forEach(function(d) {
+      d[namez] = +d[namez];
+    });
+
+
   var svg = d3.select(".chart-" + namez).append("svg")
     .attr("width", widthB + margin.left + margin.right)
     .attr("height", heightB + margin.top + margin.bottom)
@@ -56,13 +64,23 @@ function scatter(namez) {
     .attr('class', 'ctyRect')
     .attr("fip", function(d) { return d.id; })
     .attr('ctyType', function(d) {return d.type })
-    .attr("r", 5)
     .attr("x", function(d) { return x(d[namez]); })
     .attr("y", 0)
     .attr('height', '25px')
     .attr('width', '2px')
     .style("fill", '#ccc') //function(d) { return d.color }
     .style('opacity', 0.2)
+
+  svg.selectAll('.rectAvg')
+    .data(avg)
+    .enter()
+    .append("rect")
+    .attr('class', 'avgbars')
+    .attr("x", function(d) { return x(d[namez]); })
+    .attr("y", 0)
+    .attr('height', '25px')
+    .attr('width', '3px')
+    .style('fill', 'black')
 
   // Add the X Axis
   svg.append("g")
@@ -80,5 +98,7 @@ function scatter(namez) {
  scatter('miles');
  //scatter('houseBuilt');
  scatter('medHome');
+
+})
 
 });

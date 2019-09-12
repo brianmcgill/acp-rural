@@ -228,6 +228,7 @@ function ready(error, us, rural) {
       .style('opacity', 0.2);
 
     d3.select('.cty-big').html('')
+    
   };
 
   $('input[type="hidden"]').change(function(){
