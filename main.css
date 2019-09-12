@@ -94,3 +94,10 @@ hr {
 	color: #999;
 }
 
+.avgbar {
+	position: static;
+	float: left;
+	background-color: black;
+	height: 18px;
+	width: 2px;
+}
