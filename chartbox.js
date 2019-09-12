@@ -82,6 +82,29 @@ function scatter(namez) {
     .attr('width', '3px')
     .style('fill', 'black')
 
+  svg.selectAll('text')
+    .data(data)
+    .enter()
+    .append('text')
+    .attr('class', 'thisbartext')
+    .attr("fip", function(d) { return d.id; })
+    .style('visibility', 'hidden')
+    .text( function(d) {  
+        if(namez == 'popCng' || namez == 'miles') { 
+          return addCommas(d[namez]*1000)
+        } else if (namez == 'hhIncome' || namez == 'medHome') { 
+          return '$' + addCommas(d[namez]*1000)
+        } else {
+          return pctDecimal(d[namez]) + '%'
+        }
+
+
+    }) //return addCommas(d[namez]*1000)
+    .attr("x", function(d) { return x(d[namez]); })
+    .attr("y", 0)
+    .attr("font-size", "11px")  // Font size
+    .attr("fill", "darkgreen");
+
   // Add the X Axis
   svg.append("g")
     .attr("transform", "translate(0,22)")
