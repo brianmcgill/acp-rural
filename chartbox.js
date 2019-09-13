@@ -8,8 +8,6 @@ var dimB = parseInt(d3.select(".barbox").style("width")),
 var x = d3.scaleLinear().rangeRound([0, widthB]);
 var y = d3.scaleLinear().range([heightB-100, 0]);
 
-console.log(widthB);
-
 d3.csv("data/acprural.csv", function(error, data) {
   if (error) throw error;
 
