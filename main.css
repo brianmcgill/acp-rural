@@ -5,7 +5,7 @@ h5, h6 { margin-bottom: 0px !important; }
 #chart {
 	position: static;
   	width: 100%;
-  	max-width: 900px;
+  	max-width: 1100px;
   	height: auto;
   	
 }
@@ -64,19 +64,20 @@ hr {
 }
 
 
-.cbox-container {  position: relative; width: 100%;  margin: 25px auto 0;}
+.cbox-container {  width: 100% !important;  margin: 25px auto 0;}
 //.combobox-container { margin-left: auto; }
+
+
 
 .scatterbox {
 	position: static;
 	width: 100%;
-	max-width: 900px;
+	max-width: 1100px;
 }
 
 .barbox {
 	position: static;
 	width: 100%;
-	max-width: 900px;
 	margin: 0 ;
 }
 
